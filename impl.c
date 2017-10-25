@@ -8,6 +8,17 @@ void naive_transpose(int *src, int *dst, int w, int h)
             *(dst + x * h + y) = *(src + y * w + x);
 }
 
+void unrolling_naive_transpose(int *src, int *dst, int w, int h)
+{
+    for (int x = 0; x < w; x++)
+        for (int y = 0; y < h; y += 4) {
+            *(dst + x * h + y + 0) = *(src + y + 0 * w + x);
+            *(dst + x * h + y + 1) = *(src + y + 1 * w + x);
+            *(dst + x * h + y + 2) = *(src + y + 2 * w + x);
+            *(dst + x * h + y + 3) = *(src + y + 3 * w + x);
+        }
+}
+
 void sse_transpose(int *src, int *dst, int w, int h)
 {
     for (int x = 0; x < w; x += 4) {
